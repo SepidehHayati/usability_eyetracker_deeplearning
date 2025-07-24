@@ -27,7 +27,7 @@ for filename in os.listdir(feature_dir):
                 task = int(parts[1][1:])          # "t2" → 2
                 user = int(parts[2][4:])          # "user5" → 5
             else:
-                print(f"⚠️ Invalid filename format: {filename}")
+                print(f" Invalid filename format: {filename}")
                 continue
 
             # پیدا کردن لیبل مربوطه از فایل لیبل
@@ -38,7 +38,7 @@ for filename in os.listdir(feature_dir):
             ]
 
             if match.empty:
-                print(f"⚠️ No label found for {filename}")
+                print(f" No label found for {filename}")
                 continue
 
             label = match["label"].values[0]
@@ -49,17 +49,19 @@ for filename in os.listdir(feature_dir):
             Y_list.append(label)
 
         except Exception as e:
-            print(f"❌ Error in {filename}: {e}")
+            print(f" Error in {filename}: {e}")
 
 # تبدیل لیست‌ها به numpy array
 X = np.array(X_list)
 Y = np.array(Y_list)
 
-print("✅ X shape:", X.shape)  # (samples, time steps, features)
-print("✅ Y shape:", Y.shape)  # (samples,)
+print(" X shape:", X.shape)  # (samples, time steps, features)
+print(" Y shape:", Y.shape)  # (samples,)
 
 # اگر لیبل‌ها عددی هستند:
 # Y_cat = to_categorical(Y, num_classes=2)
 
 # می‌تونی بعدش اینو استفاده کنی برای آموزش:
 # X_train, X_test, Y_train, Y_test = train_test_split(X, Y_cat, test_size=0.2, random_state=42, stratify=Y)
+np.save("X.npy", X)
+np.save("Y.npy", Y)
