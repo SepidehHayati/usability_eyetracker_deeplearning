@@ -1,4 +1,4 @@
-absl-py
+absl-py==2.0.0
 astunparse==1.6.3
 certifi==2025.7.14
 charset-normalizer==3.4.2
