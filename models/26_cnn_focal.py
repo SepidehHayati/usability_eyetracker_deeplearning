@@ -12,11 +12,11 @@ from tensorflow.keras.layers import Dense, Dropout, Input, Conv1D, MaxPooling1D,
 from tensorflow.keras.callbacks import ReduceLROnPlateau, EarlyStopping
 from tensorflow.keras.utils import to_categorical
 
-# تنظیم seed برای تکرارپذیری
+# تنظیم seed برای reproducibility
 np.random.seed(42)
 tf.random.set_seed(42)
 
-# تعریف Focal Loss
+# تعریف focal loss
 def focal_loss(gamma=2., alpha=0.75):
     def focal_loss_fixed(y_true, y_pred):
         epsilon = tf.keras.backend.epsilon()
@@ -41,17 +41,16 @@ le = LabelEncoder()
 Y_train_enc = le.fit_transform(Y_train)
 Y_test_enc = le.transform(Y_test)
 
-# 4. SMOTE (روی داده‌های فلت‌شده برای ساده‌سازی)
+# 4. SMOTE روی داده‌های فلت شده
 X_train_flat = X_train.reshape(X_train.shape[0], -1)
-X_test_flat = X_test.reshape(X_test.shape[0], -1)
-sm = SMOTE(random_state=42, sampling_strategy=0.5)
+sm = SMOTE(random_state=42, sampling_strategy='auto')  # auto = برابر کردن تعداد کلاس‌ها
 X_res_flat, Y_res = sm.fit_resample(X_train_flat, Y_train_enc)
 print(f"After SMOTE: {Counter(Y_res)}")
 
-# بازگرداندن به شکل سری زمانی برای 1D-CNN
+# بازگرداندن به شکل اصلی برای CNN
 X_res = X_res_flat.reshape(-1, X_train.shape[1], X_train.shape[2])
 
-# 5. One-hot
+# 5. One-hot encoding
 Y_res_cat = to_categorical(Y_res, num_classes=2)
 Y_test_cat = to_categorical(Y_test_enc, num_classes=2)
 
@@ -117,7 +116,5 @@ for i in range(2):
         plt.text(j, i, cm[i, j], ha='center', va='center', color='black')
 plt.savefig(os.path.join(output_dir, 'confusion_matrix.png'))
 plt.close()
-
-
 
 print("Training & evaluation finished. Results saved.")
