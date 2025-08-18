@@ -1,3 +1,0 @@
-Accuracy: 0.5377 ± 0.1089
-F1-score class 0: 0.4858 ± 0.1281
-F1-score class 1: 0.5380 ± 0.2114
