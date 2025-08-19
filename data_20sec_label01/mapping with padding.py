@@ -1,10 +1,8 @@
 import os
 import numpy as np
 import pandas as pd
-from sklearn.model_selection import train_test_split
-from tensorflow.keras.utils import to_categorical
 
-# مسیر پوشه و فایل‌ها
+# مسیر پوشه‌ها
 feature_dir = r"/data_20sec_label01/data/gaze_features"
 label_path = r"C:\Users\spdhy\PycharmProjects\gaze_pytorch_project\data_20sec_label01\Label.xlsx"
 
@@ -14,11 +12,12 @@ labels_df = pd.read_excel(label_path)
 X_list = []
 Y_list = []
 
-# پیمایش فایل‌های ویژگی
+num_timesteps = 3000  # تعداد زمان‌های ثابت (20 ثانیه)
+num_features = 4      # delta_FPOGX, delta_FPOGY, delta_LPD, delta_RPD
+
 for filename in os.listdir(feature_dir):
     if filename.endswith(".csv"):
         try:
-            # استخراج اطلاعات از نام فایل (مثال: caltech_t2_user5_features.csv)
             base = filename.replace(".csv", "")
             parts = base.split("_")
 
@@ -30,7 +29,6 @@ for filename in os.listdir(feature_dir):
                 print(f" Invalid filename format: {filename}")
                 continue
 
-            # پیدا کردن لیبل مربوطه از فایل لیبل
             match = labels_df[
                 (labels_df["website"].str.lower().str.strip() == website) &
                 (labels_df["task_id"] == task) &
@@ -42,26 +40,29 @@ for filename in os.listdir(feature_dir):
                 continue
 
             label = match["label"].values[0]
+            df = pd.read_csv(os.path.join(feature_dir, filename)).values  # shape: (n, 4)
 
-            # بارگیری داده ویژگی
-            df = pd.read_csv(os.path.join(feature_dir, filename))
-            X_list.append(df.values)
+            # صفرپَد اگر کمتر از 3000 ردیف باشد
+            if df.shape[0] < num_timesteps:
+                pad_len = num_timesteps - df.shape[0]
+                pad = np.zeros((pad_len, num_features))
+                df_padded = np.vstack([df, pad])
+            else:
+                df_padded = df[:num_timesteps]  # اگر بیشتر بود، فقط 3000 ردیف نگه دار
+
+            X_list.append(df_padded)
             Y_list.append(label)
 
         except Exception as e:
             print(f" Error in {filename}: {e}")
 
-# تبدیل لیست‌ها به numpy array
-X = np.array(X_list)
+# تبدیل به آرایه numpy
+X = np.array(X_list)  # shape: (108, 3000, 4)
 Y = np.array(Y_list)
 
-print(" X shape:", X.shape)  # (samples, time steps, features)
-print(" Y shape:", Y.shape)  # (samples,)
+print("X shape:", X.shape)
+print("Y shape:", Y.shape)
 
-# اگر لیبل‌ها عددی هستند:
-# Y_cat = to_categorical(Y, num_classes=2)
-
-# می‌تونی بعدش اینو استفاده کنی برای آموزش:
-# X_train, X_test, Y_train, Y_test = train_test_split(X, Y_cat, test_size=0.2, random_state=42, stratify=Y)
+# ذخیره‌سازی
 np.save("X.npy", X)
 np.save("Y.npy", Y)
