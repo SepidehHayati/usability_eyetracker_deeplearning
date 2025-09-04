@@ -1,12 +1,12 @@
 Runs: 40
 Mean ± STD
-Accuracy: 0.5423 ± 0.1257
-Balanced Acc: 0.5064 ± 0.1095
-Precision (bin): 0.6249 ± 0.1444
-Recall (bin): 0.6940 ± 0.3264
-F1 (bin): 0.6090 ± 0.1924
-Precision (macro): 0.4396 ± 0.1952
-Recall (macro): 0.5064 ± 0.1095
-F1 (macro): 0.4318 ± 0.1283
-Class 0 — Precision: 0.2544 ± 0.3033, Recall: 0.3187 ± 0.3530, F1: 0.2545 ± 0.2657
-Class 1 — Precision: 0.6249 ± 0.1444, Recall: 0.6940 ± 0.3264, F1: 0.6090 ± 0.1924
+Accuracy: 0.5286 ± 0.1270
+Balanced Acc: 0.4846 ± 0.1186
+Precision (bin): 0.5934 ± 0.2219
+Recall (bin): 0.6929 ± 0.3098
+F1 (bin): 0.6037 ± 0.2110
+Precision (macro): 0.3924 ± 0.1767
+Recall (macro): 0.4846 ± 0.1186
+F1 (macro): 0.4101 ± 0.1283
+Class 0 — Precision: 0.1914 ± 0.2170, Recall: 0.2762 ± 0.3523, F1: 0.2164 ± 0.2539
+Class 1 — Precision: 0.5934 ± 0.2219, Recall: 0.6929 ± 0.3098, F1: 0.6037 ± 0.2110

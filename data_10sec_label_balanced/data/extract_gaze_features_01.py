@@ -3,8 +3,8 @@ import pandas as pd
 
 # Input and output folders
 # پوشه‌های ورودی و خروجی
-input_folder = r"C:\Users\spdhy\PycharmProjects\gaze_pytorch_project\data_10sec_label_balanced/data/gaze_files"
-output_folder = r"C:\Users\spdhy\PycharmProjects\gaze_pytorch_project\data_10sec_label_balanced/data/gaze_features"
+input_folder = r"C:\Users\sepideh\PycharmProjects\Thesis\data_10sec_label_balanced/data/gaze_files"
+output_folder = r"C:\Users\sepideh\PycharmProjects\Thesis\data_10sec_label_balanced/data/gaze_features"
 os.makedirs(output_folder, exist_ok=True)
 
 # Helper function to find the time column
