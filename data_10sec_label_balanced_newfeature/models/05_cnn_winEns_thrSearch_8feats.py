@@ -42,7 +42,7 @@ BATCH_SIZE  = 16
 
 # Threshold search
 THR_GRID       = np.linspace(0.05, 0.95, 91)  # گام 0.01
-MIN_C0_RATIO   = 0.30                         # حداقل سهم پیش‌بینی کلاس صفر در ولیدیشن
+MIN_C0_RATIO   = 0.20                         # حداقل سهم پیش‌بینی کلاس صفر در ولیدیشن
 OPTIMIZE_FOR   = "macro_f1"                   # یا "balanced"
 
 # =========================
