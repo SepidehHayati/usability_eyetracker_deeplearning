@@ -1,6 +1,0 @@
-WIN=500, STR=200, Seeds=[7, 17, 23], TopK=5, NEG_BOOST=1.4, AGG_MODE=trimmed
-Mean ± STD (file-level, hybrid with fallback)
-Accuracy: 0.6019 ± 0.1380
-Precision: 0.6173 ± 0.1162
-Recall: 0.9056 ± 0.1639
-F1: 0.7289 ± 0.1190

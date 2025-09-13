@@ -23,7 +23,7 @@ from tensorflow.keras.optimizers import Adam
 
 # ======================= Paths & I/O =======================
 DATA_DIR   = os.path.join("..", "data")
-RESULT_DIR = os.path.join("..", "results", "14f_cnn_window_ensemble_hybridrule_accopt_tf_v2b")
+RESULT_DIR = os.path.join("..", "results", "14f_cnn_window_ensemble_hybridrule_accopt_tf_v2b_best")
 os.makedirs(RESULT_DIR, exist_ok=True)
 
 X = np.load(os.path.join(DATA_DIR, "X8.npy"))   # (N,1500,8)
