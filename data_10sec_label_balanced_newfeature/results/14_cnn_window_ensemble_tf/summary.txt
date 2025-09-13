@@ -1,0 +1,9 @@
+WIN=300, STR=150
+Seeds=[7, 17, 23]
+Epochs=80, Batch=16, LR=0.001
+File-level thresholds: 0.300, 0.440, 0.570, 0.460, 0.510, 0.490
+Mean ± STD (file-level)
+Accuracy: 0.5833 ± 0.1152
+Precision: 0.6179 ± 0.1031
+Recall: 0.8508 ± 0.2174
+F1: 0.7018 ± 0.1191

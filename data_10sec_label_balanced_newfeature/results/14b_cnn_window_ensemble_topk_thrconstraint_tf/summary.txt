@@ -1,0 +1,7 @@
+WIN=300, STR=150, Seeds=[7, 17, 23], TopK=5, PREC_MIN=0.7
+File-level thresholds: 0.550, 0.460, 0.590, 0.300, 0.510, 0.510
+Mean ± STD (file-level)
+Accuracy: 0.4815 ± 0.1636
+Precision: 0.3862 ± 0.3118
+Recall: 0.5091 ± 0.4498
+F1: 0.4333 ± 0.3615

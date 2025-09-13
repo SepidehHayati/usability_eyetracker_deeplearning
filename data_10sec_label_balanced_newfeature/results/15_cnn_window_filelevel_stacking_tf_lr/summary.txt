@@ -1,0 +1,6 @@
+WIN=400, STR=200, Seeds=[7, 17, 23], TopK=5, USE_TAB=True
+Mean ± STD (file-level, LR stacking)
+Accuracy: 0.5370 ± 0.1092
+Precision: 0.6220 ± 0.0969
+Recall: 0.6811 ± 0.1629
+F1: 0.6389 ± 0.0767

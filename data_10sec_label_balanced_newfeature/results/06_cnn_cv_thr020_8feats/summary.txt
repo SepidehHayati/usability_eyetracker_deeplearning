@@ -1,0 +1,13 @@
+Global Threshold: 0.560
+Runs: 5
+Mean ± STD
+Accuracy: 0.4298 ± 0.1148
+Balanced Acc: 0.4770 ± 0.0627
+Precision (bin): 0.2311 ± 0.3169
+Recall (bin): 0.3104 ± 0.4353
+F1 (bin): 0.2621 ± 0.3597
+Precision (macro): 0.3103 ± 0.1915
+Recall (macro): 0.4770 ± 0.0627
+F1 (macro): 0.3369 ± 0.1105
+Class 0 — Precision: 0.3894 ± 0.1900, Recall: 0.6436 ± 0.4345, F1: 0.4117 ± 0.1879
+Class 1 — Precision: 0.2311 ± 0.3169, Recall: 0.3104 ± 0.4353, F1: 0.2621 ± 0.3597

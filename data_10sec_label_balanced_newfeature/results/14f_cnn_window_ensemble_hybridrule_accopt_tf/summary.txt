@@ -1,0 +1,7 @@
+WIN=500, STR=250, Seeds=[7, 17, 23], TopK=5, NEG_BOOST=1.6, AGG_MODE=median
+Per-fold (thr_file, T_WIN, ALPHA): (0.450,0.55,0.30), (0.450,0.55,0.30), (0.460,0.55,0.30), (0.450,0.55,0.30), (0.450,0.55,0.30), (0.450,0.55,0.30)
+Mean ± STD (file-level, hybrid)
+Accuracy: 0.3704 ± 0.0836
+Precision: 0.1667 ± 0.4082
+Recall: 0.0152 ± 0.0371
+F1: 0.0278 ± 0.0680

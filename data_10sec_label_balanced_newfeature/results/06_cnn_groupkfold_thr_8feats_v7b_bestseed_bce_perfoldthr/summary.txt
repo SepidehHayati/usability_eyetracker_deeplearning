@@ -1,0 +1,12 @@
+Runs: 6
+SEEDS: [7, 17, 23, 31, 57]
+MIN_C0_RATIO: 0.15
+LABEL_SMOOTH: 0.0
+TOPK_CHECKPOINTS: 7
+Per-fold thresholds: 0.488, 0.502, 0.640, 0.446, 0.541, 0.464
+Mean ± STD
+Accuracy: 0.5185 ± 0.1558
+Precision: 0.6024 ± 0.1669
+Recall: 0.6111 ± 0.2346
+F1: 0.5874 ± 0.1673
+F1 (macro): 0.4906 ± 0.1468

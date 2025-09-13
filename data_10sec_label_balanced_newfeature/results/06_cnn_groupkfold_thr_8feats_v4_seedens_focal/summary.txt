@@ -1,0 +1,12 @@
+Global Threshold: 0.500
+Runs: 6
+SEEDS: [7, 17, 23]
+USE_FOCAL: True (alpha_1=0.5, gamma=2.0)
+MIN_C0_RATIO: 0.2
+TOPK_CHECKPOINTS: 3
+Mean ± STD
+Accuracy: 0.3519 ± 0.1092
+Precision: 0.2066 ± 0.2305
+Recall: 0.3083 ± 0.4477
+F1: 0.2234 ± 0.2930
+F1 (macro): 0.2913 ± 0.1124

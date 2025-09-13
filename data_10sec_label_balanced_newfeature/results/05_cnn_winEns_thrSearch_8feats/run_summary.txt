@@ -1,0 +1,8 @@
+X: (108, 1500, 8), Y: (108,)
+Train/Val/Test sizes: 68/18/22
+Windows: n_windows=6, win_len=300, agg=median
+LR=0.001, epochs=100, batch_size=16
+class_weight={0: np.float64(1.3076923076923077), 1: np.float64(0.8095238095238095)}
+Threshold grid: [0.05..0.95] step~0.01
+Min C0 share: 0.2, optimize_for=macro_f1
+Best thr (val): 0.520 | best val macro_f1: 0.4156

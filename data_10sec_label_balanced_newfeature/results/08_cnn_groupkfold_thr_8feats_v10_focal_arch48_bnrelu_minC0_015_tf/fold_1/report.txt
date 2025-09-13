@@ -1,0 +1,10 @@
+best_thr=0.499 | macroF1(val)=0.5786
+
+              precision    recall  f1-score   support
+
+           0     0.5000    0.3000    0.3750        10
+           1     0.4167    0.6250    0.5000         8
+
+    accuracy                         0.4444        18
+   macro avg     0.4583    0.4625    0.4375        18
+weighted avg     0.4630    0.4444    0.4306        18
