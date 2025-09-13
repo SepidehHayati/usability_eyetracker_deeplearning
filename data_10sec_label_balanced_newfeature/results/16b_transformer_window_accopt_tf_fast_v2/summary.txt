@@ -1,0 +1,12 @@
+WIN=500, STR=200, Seeds=[7, 17, 23], TopK=5, NEG_BOOST=1.4, AGG_MODE=trimmed
+Transformer: d_model=64, heads=4, layers=1, ffn=128, dropout=0.2
+== Overall ==
+Accuracy: 0.6111 ± 0.0703
+Precision: 0.6111 ± 0.0703
+Recall: 1.0000 ± 0.0000
+F1: 0.7566 ± 0.0557
+== Calibrated ==
+Accuracy: 0.6111 ± 0.0703
+Precision: 0.6111 ± 0.0703
+Recall: 1.0000 ± 0.0000
+F1: 0.7566 ± 0.0557
