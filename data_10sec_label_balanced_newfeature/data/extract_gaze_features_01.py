@@ -2,12 +2,11 @@ import os
 import pandas as pd
 
 # پوشه‌های ورودی و خروجی
-input_folder = r"C:\Users\sepideh\PycharmProjects\Thesis\data_10sec_label_balanced_newfeature\data\gaze_files"
-output_folder = r"C:\Users\sepideh\PycharmProjects\Thesis\data_10sec_label_balanced_newfeature\data\gaze_features"
-
+input_folder = r"C:\Users\sepideh\PycharmProjects\Thesis\data_10sec_label_balanced_newfeature02\data\gaze_files"
+output_folder = r"C:\Users\sepideh\PycharmProjects\Thesis\data_10sec_label_balanced_newfeature02\data\gaze_features"
 os.makedirs(output_folder, exist_ok=True)
 
-# ۸ ویژگی پایه و تعداد ردیف‌هایی که می‌خوایم نگه داریم
+# ۸ ویژگی پایه و تعداد ردیف‌هایی که می‌خوایم نگه‌داریم
 base_features = ['FPOGX', 'FPOGY', 'LPD', 'RPD', 'FPOGD', 'BPOGX', 'BPOGY', 'BKDUR']
 num_rows = 1500
 
@@ -27,12 +26,11 @@ for filename in os.listdir(input_folder):
             for feature in base_features:
                 df_limited[f'delta_{feature}'] = df_limited[feature].diff().fillna(0)
 
-            # فقط دلتاها رو ذخیره کن
+            # ذخیره هم ویژگی‌های خام و هم دلتاها
             delta_cols = [f'delta_{f}' for f in base_features]
-            delta_df = df_limited[delta_cols]
-            delta_df.to_csv(output_path, index=False)
+            df_limited[base_features + delta_cols].to_csv(output_path, index=False)
 
-            print(f"Processed: {filename} → {output_path} ({delta_df.shape[0]} rows, {delta_df.shape[1]} cols)")
+            print(f"Processed: {filename} → {output_path} ({df_limited.shape[0]} rows, {df_limited.shape[1]} cols)")
 
         except Exception as e:
             print(f"Error in file {filename}: {e}")
