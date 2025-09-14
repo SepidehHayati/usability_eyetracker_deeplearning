@@ -1,0 +1,7 @@
+fold,mode,acc,precision,recall,f1,bal_acc,thr,agg_mode,trim_q,cal_cnn,cal_trf,cal_inc
+1,lr_ensemble,0.5,0.5,1.0,0.6666666666666666,0.5,0.5900000000000001,median,0.1,isotonic,isotonic,isotonic
+2,lr_ensemble,0.3333333333333333,0.0,0.0,0.0,0.5,0.62,trimmed,0.0,isotonic,isotonic,isotonic
+3,lr_ensemble,0.3888888888888889,0.0,0.0,0.0,0.5,0.62,median,0.1,isotonic,isotonic,isotonic
+4,lr_ensemble,0.6111111111111112,0.7777777777777778,0.5833333333333334,0.6666666666666666,0.625,0.6000000000000001,median,0.1,isotonic,isotonic,isotonic
+5,lr_ensemble,0.3888888888888889,0.6,0.25,0.35294117647058826,0.4583333333333333,0.6000000000000001,trimmed,0.0,isotonic,isotonic,isotonic
+6,lr_ensemble,0.3888888888888889,0.3333333333333333,0.1,0.15384615384615385,0.425,0.61,trimmed,0.0,platt,isotonic,isotonic

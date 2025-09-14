@@ -1,0 +1,7 @@
+WIN=500, STR=200, Seeds=[7, 17, 23], TopK=5, NEG_BOOST=1.4, AGG_MODE=median
+File-level thresholds: 0.400, 0.400, 0.400, 0.400, 0.400, 0.400
+Mean ± STD (file-level)
+Accuracy: 0.5556 ± 0.0994
+Precision: 0.5967 ± 0.0611
+Recall: 0.8611 ± 0.3012
+F1: 0.6752 ± 0.1643

@@ -1,0 +1,72 @@
+{
+  "WIN": 500,
+  "STR": 200,
+  "Seeds": [
+    7,
+    17,
+    23
+  ],
+  "TopK": 5,
+  "NEG_BOOST": 1.4,
+  "AGG_MODE": "median",
+  "AGG_TRIM_Q": 0.1,
+  "THR_RANGE": [
+    0.45,
+    0.8
+  ],
+  "PREC_FLOOR": 0.65,
+  "PPR_RANGE_CONSTRAINT": [
+    0.35,
+    0.65
+  ],
+  "Transformer": {
+    "d_model": 64,
+    "heads": 4,
+    "layers": 1,
+    "ffn": 128,
+    "dropout": 0.2
+  },
+  "VAL_FILE_RATIO": 0.35,
+  "metrics_mean_std": {
+    "Accuracy": [
+      0.5555555555555555,
+      0.12668615834434865
+    ],
+    "Precision": [
+      0.49999999999999994,
+      0.2581988897471611
+    ],
+    "Recall": [
+      0.6784511784511785,
+      0.4607396876282824
+    ],
+    "F1": [
+      0.5511111111111111,
+      0.34010891501704876
+    ],
+    "BalancedAcc": [
+      0.49134199134199136,
+      0.021207703400720163
+    ],
+    "PPR_test": [
+      0.6851851851851851,
+      0.4522463366033974
+    ]
+  },
+  "per_fold_thr": [
+    0.625,
+    0.45,
+    0.625,
+    0.45,
+    0.45,
+    0.63375
+  ],
+  "modes_used": [
+    "balanced_accuracy",
+    "balanced_accuracy",
+    "balanced_accuracy",
+    "balanced_accuracy",
+    "balanced_accuracy",
+    "balanced_accuracy"
+  ]
+}

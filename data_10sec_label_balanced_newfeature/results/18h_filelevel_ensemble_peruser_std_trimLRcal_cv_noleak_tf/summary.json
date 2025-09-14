@@ -1,0 +1,59 @@
+{
+  "lr_ensemble": {
+    "mode": "lr_ensemble",
+    "acc_mean": 0.4351851851851852,
+    "acc_std": 0.10193599218165103,
+    "prec_mean": 0.3685185185185185,
+    "prec_std": 0.3197542780853908,
+    "rec_mean": 0.32222222222222224,
+    "rec_std": 0.3974455471671094,
+    "f1_mean": 0.3066867772750126,
+    "f1_std": 0.3075010002775884,
+    "bal_acc_mean": 0.5013888888888889,
+    "bal_acc_std": 0.06778574634395794
+  },
+  "config": {
+    "WIN": 500,
+    "STR": 200,
+    "Seeds": [
+      7,
+      17,
+      23
+    ],
+    "TopK": 5,
+    "NEG_BOOST": 1.1,
+    "VAL_FILE_RATIO": 0.35,
+    "THR_RANGE": [
+      0.4,
+      0.8,
+      41
+    ],
+    "Transformer": {
+      "d_model": 64,
+      "heads": 4,
+      "layers": 1,
+      "ffn": 128,
+      "dropout": 0.2
+    },
+    "agg_candidates": {
+      "modes": [
+        "median",
+        "trimmed"
+      ],
+      "trim_q": [
+        0.0,
+        0.05,
+        0.1,
+        0.15,
+        0.2
+      ]
+    },
+    "calibration_modes": [
+      "platt",
+      "isotonic"
+    ],
+    "standardization": "per-user",
+    "threshold_metric": "balanced_acc (OOF CV, tie=f1_macro)",
+    "ensemble": "learned LR over [cnn,trf,inc] with OOF threshold"
+  }
+}

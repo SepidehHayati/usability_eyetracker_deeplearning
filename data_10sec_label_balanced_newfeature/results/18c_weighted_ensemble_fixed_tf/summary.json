@@ -1,0 +1,57 @@
+{
+  "config": {
+    "WIN": 500,
+    "STR": 200,
+    "Seeds": [
+      7,
+      17,
+      23
+    ],
+    "TopK": 5,
+    "NEG_BOOST": 1.4,
+    "AGG_MODE": "median",
+    "AGG_TRIM_Q": 0.1,
+    "VAL_FILE_RATIO": 0.35,
+    "THR_RANGE": [
+      0.4,
+      0.8,
+      41
+    ],
+    "weights_fixed": {
+      "cnn": 0.2,
+      "transformer": 0.5,
+      "inception": 0.3
+    },
+    "models": {
+      "cnn": "3xConv-BN-ReLU + GAP",
+      "transformer": "1x encoder (d_model=64, heads=4, ffn=128, drop=0.2)",
+      "inceptiontime": "3 modules, nf=32, bottleneck=32, drop=0.2"
+    }
+  },
+  "Mean\u00b1STD": {
+    "Accuracy": [
+      0.6018518518518517,
+      0.0890045543755401
+    ],
+    "Precision": [
+      0.6062091503267973,
+      0.07993520166114318
+    ],
+    "Recall": [
+      0.9814814814814815,
+      0.045360921162651474
+    ],
+    "F1": [
+      0.7480485032209171,
+      0.07341427413151713
+    ]
+  },
+  "thr_list": [
+    0.62,
+    0.4,
+    0.4,
+    0.4,
+    0.4,
+    0.4
+  ]
+}
