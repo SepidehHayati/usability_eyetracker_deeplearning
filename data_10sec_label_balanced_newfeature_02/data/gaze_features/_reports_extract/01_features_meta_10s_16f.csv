@@ -1,0 +1,109 @@
+input_file,output_file,rows_in,rows_out,padded_rows,truncated_rows,n_cols_out,columns_ok
+MIT_T1_User10_gaze.csv,MIT_T1_User10_features.csv,33248,1500,0,31748,16,1
+MIT_T1_User14_gaze.csv,MIT_T1_User14_features.csv,36136,1500,0,34636,16,1
+MIT_T1_User24_gaze.csv,MIT_T1_User24_features.csv,27545,1500,0,26045,16,1
+MIT_T1_User28_gaze.csv,MIT_T1_User28_features.csv,7821,1500,0,6321,16,1
+MIT_T1_User32_gaze.csv,MIT_T1_User32_features.csv,7757,1500,0,6257,16,1
+MIT_T1_User36_gaze.csv,MIT_T1_User36_features.csv,9789,1500,0,8289,16,1
+MIT_T2_User15_gaze.csv,MIT_T2_User15_features.csv,27218,1500,0,25718,16,1
+MIT_T2_User17_gaze.csv,MIT_T2_User17_features.csv,30327,1500,0,28827,16,1
+MIT_T2_User19_gaze.csv,MIT_T2_User19_features.csv,24495,1500,0,22995,16,1
+MIT_T2_User23_gaze.csv,MIT_T2_User23_features.csv,9779,1500,0,8279,16,1
+MIT_T2_User34_gaze.csv,MIT_T2_User34_features.csv,6297,1500,0,4797,16,1
+MIT_T2_User4_gaze.csv,MIT_T2_User4_features.csv,16784,1500,0,15284,16,1
+MIT_T3_User13_gaze.csv,MIT_T3_User13_features.csv,13458,1500,0,11958,16,1
+MIT_T3_User22_gaze.csv,MIT_T3_User22_features.csv,39975,1500,0,38475,16,1
+MIT_T3_User2_gaze.csv,MIT_T3_User2_features.csv,15656,1500,0,14156,16,1
+MIT_T3_User35_gaze.csv,MIT_T3_User35_features.csv,17886,1500,0,16386,16,1
+MIT_T3_User6_gaze.csv,MIT_T3_User6_features.csv,13906,1500,0,12406,16,1
+MIT_T3_User8_gaze.csv,MIT_T3_User8_features.csv,24944,1500,0,23444,16,1
+Princeton_T1_User 12_gaze.csv,Princeton_T1_User 12_features.csv,9597,1500,0,8097,16,1
+Princeton_T1_User 16_gaze.csv,Princeton_T1_User 16_features.csv,2949,1500,0,1449,16,1
+Princeton_T1_User 25_gaze.csv,Princeton_T1_User 25_features.csv,7970,1500,0,6470,16,1
+Princeton_T1_User 26_gaze.csv,Princeton_T1_User 26_features.csv,16101,1500,0,14601,16,1
+Princeton_T1_User 5_gaze.csv,Princeton_T1_User 5_features.csv,7196,1500,0,5696,16,1
+Princeton_T1_User 9_gaze.csv,Princeton_T1_User 9_features.csv,7984,1500,0,6484,16,1
+Princeton_T2_User 13_gaze.csv,Princeton_T2_User 13_features.csv,9939,1500,0,8439,16,1
+Princeton_T2_User 14_gaze.csv,Princeton_T2_User 14_features.csv,12632,1500,0,11132,16,1
+Princeton_T2_User 21_gaze.csv,Princeton_T2_User 21_features.csv,30171,1500,0,28671,16,1
+Princeton_T2_User 28_gaze.csv,Princeton_T2_User 28_features.csv,30111,1500,0,28611,16,1
+Princeton_T2_User 29_gaze.csv,Princeton_T2_User 29_features.csv,26678,1500,0,25178,16,1
+Princeton_T2_User 30_gaze.csv,Princeton_T2_User 30_features.csv,33508,1500,0,32008,16,1
+Princeton_T3_User 11_gaze.csv,Princeton_T3_User 11_features.csv,13626,1500,0,12126,16,1
+Princeton_T3_User 1_gaze.csv,Princeton_T3_User 1_features.csv,8930,1500,0,7430,16,1
+Princeton_T3_User 23_gaze.csv,Princeton_T3_User 23_features.csv,11454,1500,0,9954,16,1
+Princeton_T3_User 31_gaze.csv,Princeton_T3_User 31_features.csv,8132,1500,0,6632,16,1
+Princeton_T3_User 32_gaze.csv,Princeton_T3_User 32_features.csv,9847,1500,0,8347,16,1
+Princeton_T3_User 3_gaze.csv,Princeton_T3_User 3_features.csv,10516,1500,0,9016,16,1
+caltech_t1_user15_gaze.csv,caltech_t1_user15_features.csv,16271,1500,0,14771,16,1
+caltech_t1_user19_gaze.csv,caltech_t1_user19_features.csv,8952,1500,0,7452,16,1
+caltech_t1_user21_gaze.csv,caltech_t1_user21_features.csv,13919,1500,0,12419,16,1
+caltech_t1_user30_gaze.csv,caltech_t1_user30_features.csv,18333,1500,0,16833,16,1
+caltech_t1_user6_gaze.csv,caltech_t1_user6_features.csv,19485,1500,0,17985,16,1
+caltech_t1_user7_gaze.csv,caltech_t1_user7_features.csv,27861,1500,0,26361,16,1
+caltech_t2_user12_gaze.csv,caltech_t2_user12_features.csv,16476,1500,0,14976,16,1
+caltech_t2_user16_gaze.csv,caltech_t2_user16_features.csv,7791,1500,0,6291,16,1
+caltech_t2_user22_gaze.csv,caltech_t2_user22_features.csv,12504,1500,0,11004,16,1
+caltech_t2_user31_gaze.csv,caltech_t2_user31_features.csv,5679,1500,0,4179,16,1
+caltech_t2_user35_gaze.csv,caltech_t2_user35_features.csv,6256,1500,0,4756,16,1
+caltech_t2_user5_gaze.csv,caltech_t2_user5_features.csv,6701,1500,0,5201,16,1
+caltech_t3_user10_gaze.csv,caltech_t3_user10_features.csv,33966,1500,0,32466,16,1
+caltech_t3_user18_gaze.csv,caltech_t3_user18_features.csv,27272,1500,0,25772,16,1
+caltech_t3_user20_gaze.csv,caltech_t3_user20_features.csv,29168,1500,0,27668,16,1
+caltech_t3_user26_gaze.csv,caltech_t3_user26_features.csv,11634,1500,0,10134,16,1
+caltech_t3_user36_gaze.csv,caltech_t3_user36_features.csv,34517,1500,0,33017,16,1
+caltech_t3_user9_gaze.csv,caltech_t3_user9_features.csv,34193,1500,0,32693,16,1
+harvard_t1_user11_gaze.csv,harvard_t1_user11_features.csv,5244,1500,0,3744,16,1
+harvard_t1_user17_gaze.csv,harvard_t1_user17_features.csv,4374,1500,0,2874,16,1
+harvard_t1_user29_gaze.csv,harvard_t1_user29_features.csv,2728,1500,0,1228,16,1
+harvard_t1_user31_gaze.csv,harvard_t1_user31_features.csv,6159,1500,0,4659,16,1
+harvard_t1_user3_gaze.csv,harvard_t1_user3_features.csv,8597,1500,0,7097,16,1
+harvard_t1_user4_gaze.csv,harvard_t1_user4_features.csv,3274,1500,0,1774,16,1
+harvard_t2_user10_gaze.csv,harvard_t2_user10_features.csv,7254,1500,0,5754,16,1
+harvard_t2_user25_gaze.csv,harvard_t2_user25_features.csv,6476,1500,0,4976,16,1
+harvard_t2_user26_gaze.csv,harvard_t2_user26_features.csv,6863,1500,0,5363,16,1
+harvard_t2_user2_gaze.csv,harvard_t2_user2_features.csv,4243,1500,0,2743,16,1
+harvard_t2_user33_gaze.csv,harvard_t2_user33_features.csv,15798,1500,0,14298,16,1
+harvard_t2_user36_gaze.csv,harvard_t2_user36_features.csv,14115,1500,0,12615,16,1
+harvard_t2_user8_gaze.csv,harvard_t2_user8_features.csv,17438,1500,0,15938,16,1
+harvard_t3_user24_gaze.csv,harvard_t3_user24_features.csv,19204,1500,0,17704,16,1
+harvard_t3_user27_gaze.csv,harvard_t3_user27_features.csv,10083,1500,0,8583,16,1
+harvard_t3_user28_gaze.csv,harvard_t3_user28_features.csv,29569,1500,0,28069,16,1
+harvard_t3_user34_gaze.csv,harvard_t3_user34_features.csv,4276,1500,0,2776,16,1
+harvard_t3_user7_gaze.csv,harvard_t3_user7_features.csv,38381,1500,0,36881,16,1
+stanford_t1_user23_gaze.csv,stanford_t1_user23_features.csv,29274,1500,0,27774,16,1
+stanford_t1_user27_gaze.csv,stanford_t1_user27_features.csv,14086,1500,0,12586,16,1
+stanford_t1_user2_gaze.csv,stanford_t1_user2_features.csv,25861,1500,0,24361,16,1
+stanford_t1_user33_gaze.csv,stanford_t1_user33_features.csv,28921,1500,0,27421,16,1
+stanford_t1_user34_gaze.csv,stanford_t1_user34_features.csv,13924,1500,0,12424,16,1
+stanford_t1_user8_gaze.csv,stanford_t1_user8_features.csv,15367,1500,0,13867,16,1
+stanford_t2_user18_gaze.csv,stanford_t2_user18_features.csv,19495,1500,0,17995,16,1
+stanford_t2_user1_gaze.csv,stanford_t2_user1_features.csv,13416,1500,0,11916,16,1
+stanford_t2_user20_gaze.csv,stanford_t2_user20_features.csv,9074,1500,0,7574,16,1
+stanford_t2_user24_gaze.csv,stanford_t2_user24_features.csv,32842,1500,0,31342,16,1
+stanford_t2_user6_gaze.csv,stanford_t2_user6_features.csv,24081,1500,0,22581,16,1
+stanford_t2_user7_gaze.csv,stanford_t2_user7_features.csv,24565,1500,0,23065,16,1
+stanford_t3_user 4_gaze.csv,stanford_t3_user 4_features.csv,4354,1500,0,2854,16,1
+stanford_t3_user12_gaze.csv,stanford_t3_user12_features.csv,5417,1500,0,3917,16,1
+stanford_t3_user14_gaze.csv,stanford_t3_user14_features.csv,27753,1500,0,26253,16,1
+stanford_t3_user16_gaze.csv,stanford_t3_user16_features.csv,22804,1500,0,21304,16,1
+stanford_t3_user17_gaze.csv,stanford_t3_user17_features.csv,16524,1500,0,15024,16,1
+stanford_t3_user5_gaze.csv,stanford_t3_user5_features.csv,13374,1500,0,11874,16,1
+yale_t1_user13_gaze.csv,yale_t1_user13_features.csv,5847,1500,0,4347,16,1
+yale_t1_user18_gaze.csv,yale_t1_user18_features.csv,6506,1500,0,5006,16,1
+yale_t1_user1_gaze.csv,yale_t1_user1_features.csv,28287,1500,0,26787,16,1
+yale_t1_user20_gaze.csv,yale_t1_user20_features.csv,7772,1500,0,6272,16,1
+yale_t1_user22_gaze.csv,yale_t1_user22_features.csv,12246,1500,0,10746,16,1
+yale_t1_user35_gaze.csv,yale_t1_user35_features.csv,18626,1500,0,17126,16,1
+yale_t2_user11_gaze.csv,yale_t2_user11_features.csv,13207,1500,0,11707,16,1
+yale_t2_user27_gaze.csv,yale_t2_user27_features.csv,4052,1500,0,2552,16,1
+yale_t2_user32_gaze.csv,yale_t2_user32_features.csv,5332,1500,0,3832,16,1
+yale_t2_user3_gaze.csv,yale_t2_user3_features.csv,20106,1500,0,18606,16,1
+yale_t2_user9_gaze.csv,yale_t2_user9_features.csv,9709,1500,0,8209,16,1
+yale_t3_user15_gaze.csv,yale_t3_user15_features.csv,15594,1500,0,14094,16,1
+yale_t3_user19_gaze.csv,yale_t3_user19_features.csv,45665,1500,0,44165,16,1
+yale_t3_user21_gaze.csv,yale_t3_user21_features.csv,6786,1500,0,5286,16,1
+yale_t3_user25_gaze.csv,yale_t3_user25_features.csv,18241,1500,0,16741,16,1
+yale_t3_user29_gaze.csv,yale_t3_user29_features.csv,11127,1500,0,9627,16,1
+yale_t3_user30_gaze.csv,yale_t3_user30_features.csv,32794,1500,0,31294,16,1
+yale_t3_user33_gaze.csv,yale_t3_user33_features.csv,7019,1500,0,5519,16,1

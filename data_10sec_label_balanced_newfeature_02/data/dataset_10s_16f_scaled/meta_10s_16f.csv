@@ -1,0 +1,109 @@
+idx,filename,website,task,user,label,split
+0,MIT_T1_User10_cleaned.csv,mit,1,10,0,train
+1,MIT_T1_User14_cleaned.csv,mit,1,14,0,train
+2,MIT_T1_User24_cleaned.csv,mit,1,24,0,test
+3,MIT_T1_User28_cleaned.csv,mit,1,28,1,train
+4,MIT_T1_User32_cleaned.csv,mit,1,32,1,train
+5,MIT_T1_User36_cleaned.csv,mit,1,36,1,val
+6,MIT_T2_User15_cleaned.csv,mit,2,15,0,test
+7,MIT_T2_User17_cleaned.csv,mit,2,17,0,val
+8,MIT_T2_User19_cleaned.csv,mit,2,19,0,train
+9,MIT_T2_User23_cleaned.csv,mit,2,23,0,train
+10,MIT_T2_User34_cleaned.csv,mit,2,34,1,test
+11,MIT_T2_User4_cleaned.csv,mit,2,4,1,test
+12,MIT_T3_User13_cleaned.csv,mit,3,13,1,train
+13,MIT_T3_User22_cleaned.csv,mit,3,22,0,val
+14,MIT_T3_User2_cleaned.csv,mit,3,2,0,train
+15,MIT_T3_User35_cleaned.csv,mit,3,35,1,val
+16,MIT_T3_User6_cleaned.csv,mit,3,6,1,val
+17,MIT_T3_User8_cleaned.csv,mit,3,8,0,train
+18,Princeton_T1_User 12_cleaned.csv,princeton,1,12,1,train
+19,Princeton_T1_User 16_cleaned.csv,princeton,1,16,1,train
+20,Princeton_T1_User 25_cleaned.csv,princeton,1,25,1,val
+21,Princeton_T1_User 26_cleaned.csv,princeton,1,26,1,train
+22,Princeton_T1_User 5_cleaned.csv,princeton,1,5,1,train
+23,Princeton_T1_User 9_cleaned.csv,princeton,1,9,1,train
+24,Princeton_T2_User 13_cleaned.csv,princeton,2,13,1,train
+25,Princeton_T2_User 14_cleaned.csv,princeton,2,14,1,train
+26,Princeton_T2_User 21_cleaned.csv,princeton,2,21,0,test
+27,Princeton_T2_User 28_cleaned.csv,princeton,2,28,0,train
+28,Princeton_T2_User 29_cleaned.csv,princeton,2,29,0,val
+29,Princeton_T2_User 30_cleaned.csv,princeton,2,30,0,train
+30,Princeton_T3_User 11_cleaned.csv,princeton,3,11,1,train
+31,Princeton_T3_User 1_cleaned.csv,princeton,3,1,0,train
+32,Princeton_T3_User 23_cleaned.csv,princeton,3,23,0,train
+33,Princeton_T3_User 31_cleaned.csv,princeton,3,31,0,test
+34,Princeton_T3_User 32_cleaned.csv,princeton,3,32,1,train
+35,Princeton_T3_User 3_cleaned.csv,princeton,3,3,0,test
+36,caltech_t1_user15_cleaned.csv,caltech,1,15,1,test
+37,caltech_t1_user19_cleaned.csv,caltech,1,19,0,train
+38,caltech_t1_user21_cleaned.csv,caltech,1,21,1,test
+39,caltech_t1_user30_cleaned.csv,caltech,1,30,1,train
+40,caltech_t1_user6_cleaned.csv,caltech,1,6,0,val
+41,caltech_t1_user7_cleaned.csv,caltech,1,7,0,train
+42,caltech_t2_user12_cleaned.csv,caltech,2,12,1,train
+43,caltech_t2_user16_cleaned.csv,caltech,2,16,1,train
+44,caltech_t2_user22_cleaned.csv,caltech,2,22,0,val
+45,caltech_t2_user31_cleaned.csv,caltech,2,31,1,test
+46,caltech_t2_user35_cleaned.csv,caltech,2,35,1,val
+47,caltech_t2_user5_cleaned.csv,caltech,2,5,1,train
+48,caltech_t3_user10_cleaned.csv,caltech,3,10,0,train
+49,caltech_t3_user18_cleaned.csv,caltech,3,18,0,train
+50,caltech_t3_user20_cleaned.csv,caltech,3,20,0,train
+51,caltech_t3_user26_cleaned.csv,caltech,3,26,1,train
+52,caltech_t3_user36_cleaned.csv,caltech,3,36,0,val
+53,caltech_t3_user9_cleaned.csv,caltech,3,9,0,train
+54,harvard_t1_user11_cleaned.csv,harvard,1,11,1,train
+55,harvard_t1_user17_cleaned.csv,harvard,1,17,1,val
+56,harvard_t1_user29_cleaned.csv,harvard,1,29,1,val
+57,harvard_t1_user31_cleaned.csv,harvard,1,31,1,test
+58,harvard_t1_user3_cleaned.csv,harvard,1,3,1,test
+59,harvard_t1_user4_cleaned.csv,harvard,1,4,1,test
+60,harvard_t2_user10_cleaned.csv,harvard,2,10,1,train
+61,harvard_t2_user25_cleaned.csv,harvard,2,25,1,val
+62,harvard_t2_user26_cleaned.csv,harvard,2,26,1,train
+63,harvard_t2_user2_cleaned.csv,harvard,2,2,1,train
+64,harvard_t2_user33_cleaned.csv,harvard,2,33,1,train
+65,harvard_t2_user36_cleaned.csv,harvard,2,36,1,val
+66,harvard_t2_user8_cleaned.csv,harvard,2,8,1,train
+67,harvard_t3_user24_cleaned.csv,harvard,3,24,0,test
+68,harvard_t3_user27_cleaned.csv,harvard,3,27,1,train
+69,harvard_t3_user28_cleaned.csv,harvard,3,28,0,train
+70,harvard_t3_user34_cleaned.csv,harvard,3,34,1,test
+71,harvard_t3_user7_cleaned.csv,harvard,3,7,0,train
+72,stanford_t1_user23_cleaned.csv,stanford,1,23,0,train
+73,stanford_t1_user27_cleaned.csv,stanford,1,27,0,train
+74,stanford_t1_user2_cleaned.csv,stanford,1,2,0,train
+75,stanford_t1_user33_cleaned.csv,stanford,1,33,0,train
+76,stanford_t1_user34_cleaned.csv,stanford,1,34,1,test
+77,stanford_t1_user8_cleaned.csv,stanford,1,8,1,train
+78,stanford_t2_user18_cleaned.csv,stanford,2,18,1,train
+79,stanford_t2_user1_cleaned.csv,stanford,2,1,1,train
+80,stanford_t2_user20_cleaned.csv,stanford,2,20,1,train
+81,stanford_t2_user24_cleaned.csv,stanford,2,24,0,test
+82,stanford_t2_user6_cleaned.csv,stanford,2,6,0,val
+83,stanford_t2_user7_cleaned.csv,stanford,2,7,0,train
+84,stanford_t3_user 4_cleaned.csv,stanford,3,4,1,test
+85,stanford_t3_user12_cleaned.csv,stanford,3,12,1,train
+86,stanford_t3_user14_cleaned.csv,stanford,3,14,0,train
+87,stanford_t3_user16_cleaned.csv,stanford,3,16,0,train
+88,stanford_t3_user17_cleaned.csv,stanford,3,17,1,val
+89,stanford_t3_user5_cleaned.csv,stanford,3,5,1,train
+90,yale_t1_user13_cleaned.csv,yale,1,13,1,train
+91,yale_t1_user18_cleaned.csv,yale,1,18,1,train
+92,yale_t1_user1_cleaned.csv,yale,1,1,1,train
+93,yale_t1_user20_cleaned.csv,yale,1,20,1,train
+94,yale_t1_user22_cleaned.csv,yale,1,22,1,val
+95,yale_t1_user35_cleaned.csv,yale,1,35,1,val
+96,yale_t2_user11_cleaned.csv,yale,2,11,0,train
+97,yale_t2_user27_cleaned.csv,yale,2,27,1,train
+98,yale_t2_user32_cleaned.csv,yale,2,32,1,train
+99,yale_t2_user3_cleaned.csv,yale,2,3,1,test
+100,yale_t2_user9_cleaned.csv,yale,2,9,1,train
+101,yale_t3_user15_cleaned.csv,yale,3,15,1,test
+102,yale_t3_user19_cleaned.csv,yale,3,19,0,train
+103,yale_t3_user21_cleaned.csv,yale,3,21,1,test
+104,yale_t3_user25_cleaned.csv,yale,3,25,1,val
+105,yale_t3_user29_cleaned.csv,yale,3,29,1,val
+106,yale_t3_user30_cleaned.csv,yale,3,30,0,train
+107,yale_t3_user33_cleaned.csv,yale,3,33,1,train

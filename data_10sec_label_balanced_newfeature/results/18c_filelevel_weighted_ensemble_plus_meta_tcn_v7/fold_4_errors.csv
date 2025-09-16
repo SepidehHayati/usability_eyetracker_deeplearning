@@ -1,0 +1,2 @@
+fold,test_files,weighted_errors,stacking_errors
+4,"[np.int64(6), np.int64(23), np.int64(26), np.int64(35), np.int64(36), np.int64(38), np.int64(53), np.int64(58), np.int64(64), np.int64(68), np.int64(73), np.int64(75), np.int64(97), np.int64(99), np.int64(100), np.int64(101), np.int64(103), np.int64(107)]","[6, 26, 35, 53, 73, 75]","[6, 26, 35, 53, 73, 75]"
