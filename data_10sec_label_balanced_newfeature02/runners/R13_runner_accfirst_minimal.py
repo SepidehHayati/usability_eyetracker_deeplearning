@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
-# runners/R12_runner_accfirst_mixup_ema.py
-# Accuracy-first + constraints با بهبود آموزش:
-# AdamW + Warmup→CosineAnnealingLR + Augment (Train-only) + MixUp + EMA (بدون SWA)
+# runners/R13_runner_accfirst_minimal.py
+# نسخه مینیمال و پایدار:
+# - پیش‌فرض: AdamW + Warmup→Cosine (قابل تغییر به Adam)
+# - بدون MixUp / EMA / Augmentation (پیش‌فرض خاموش، ولی سوییچ‌ها هست)
+# - انتخاب آستانه: Accuracy-first با قیود سخت/نرم (مثل R08)
+# - خروجی‌ها: results/<model>__R13_accfirst_minimal/
 
 import os, json, argparse, importlib.util, random
 import numpy as np
@@ -13,7 +16,7 @@ import torch.nn as nn
 from torch.utils.data import Dataset, DataLoader
 from torch.optim.lr_scheduler import SequentialLR, LinearLR, CosineAnnealingLR
 
-# ---------- مسیرها ----------
+# ---------- paths ----------
 ROOT       = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 DATA_DIR   = os.path.join(ROOT, "data")
 RESULTS_DIR= os.path.join(ROOT, "results")
@@ -24,13 +27,12 @@ SPLITS_DIR = os.path.join(DATA_DIR, "splits")
 CHANNELS = ['FPOGX','FPOGY','LPD','RPD','FPOGD','BPOGX','BPOGY','BKDUR'] + \
            [f"delta_{c}" for c in ['FPOGX','FPOGY','LPD','RPD','FPOGD','BPOGX','BPOGY','BKDUR']]
 
-# ---------- قیود (مانند R08) ----------
+# ---------- constraints (مثل R08) ----------
 HARD_MIN_F1   = 0.78
 HARD_MIN_PREC = 0.82
 SOFT_MIN_F1   = 0.75
 SOFT_MIN_PREC = 0.78
 
-# ---------- Utilities ----------
 def set_seed(seed=42):
     random.seed(seed); np.random.seed(seed)
     torch.manual_seed(seed); torch.cuda.manual_seed_all(seed)
@@ -44,59 +46,12 @@ def _load_model_module_by_path(model_path: str):
     spec.loader.exec_module(mod)
     return mod
 
-# ---------- Augment فقط Train ----------
-def time_mask_(x, max_len=30, n=2):
-    # x: (B,C,T), inplace
-    B,C,T = x.shape
-    if T<=0 or max_len<=0 or n<=0: return
-    for b in range(B):
-        for _ in range(n):
-            L = np.random.randint(10, max_len+1)
-            s = np.random.randint(0, max(1, T-L))
-            x[b, :, s:s+L] = 0.0
-
-def add_gaussian_noise_(x, sigma=0.01):
-    if sigma<=0: return
-    x.add_(torch.randn_like(x) * sigma)
-
-def mixup_batch(xb, yb, alpha=0.2):
-    # xb: (B,C,T), yb: (B,) int -> returns xb_mix, yb_mix float
-    if alpha <= 0.0 or xb.size(0) < 2:
-        return xb, yb.float()
-    lam = np.random.beta(alpha, alpha)
-    idx = torch.randperm(xb.size(0), device=xb.device)
-    xb_mix = lam * xb + (1.0 - lam) * xb[idx]
-    yb = yb.float()
-    yb_mix = lam * yb + (1.0 - lam) * yb[idx]
-    return xb_mix, yb_mix
-
 class _DS(Dataset):
     def __init__(self, X, y): self.X=X.astype(np.float32); self.y=y.astype(np.int64)
-    def __len__(self): return self.X.shape[0]
+    def __len__(self): return len(self.X)
     def __getitem__(self, i):
         x = np.transpose(self.X[i], (1,0))  # (C,T)
         return torch.from_numpy(x), torch.tensor(self.y[i], dtype=torch.long)
-
-# ---------- EMA (بدون deepcopy) ----------
-class ModelEMA:
-    def __init__(self, model, decay=0.999):
-        self.decay = float(decay)
-        # فقط پارامترها را نگه می‌داریم
-        self.shadow = {k: p.detach().clone()
-                       for k,p in model.named_parameters() if p.requires_grad}
-
-    @torch.no_grad()
-    def update(self, model):
-        for k, p in model.named_parameters():
-            if not p.requires_grad: continue
-            self.shadow[k].mul_(self.decay).add_(p.detach(), alpha=1.0-self.decay)
-
-    def state_dict_for(self, model):
-        # state_dict فعلی را کپی می‌کنیم و فقط پارامترها را با EMA جایگزین می‌کنیم
-        sd = model.state_dict()
-        for k in self.shadow:
-            sd[k] = self.shadow[k].clone()
-        return sd
 
 @torch.no_grad()
 def _eval_probs(model, loader, device):
@@ -149,8 +104,9 @@ def _choose_threshold_accfirst(y_true, y_prob,
 
 def run_with_model_path(model_path, epochs=None, batch_size=None, lr=None, patience=None,
                         seed=42, pos_weight_mode="auto", weight_decay=2e-4,
-                        use_aug=True, use_mixup=True, mixup_alpha=0.2,
-                        use_ema=True, ema_decay=0.999, grad_clip=1.0, warmup_epochs=3):
+                        optim_name="adamw",  # "adamw" یا "adam"
+                        use_scheduler=True, warmup_epochs=3, grad_clip=1.0,
+                        use_aug=False):  # پیش‌فرض خاموش (مینیمال)
     set_seed(seed)
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print(f"[INFO] device: {device}")
@@ -174,19 +130,17 @@ def run_with_model_path(model_path, epochs=None, batch_size=None, lr=None, patie
     if lr is not None: cfg["lr"] = lr
     if patience is not None: cfg["patience"] = patience
 
-    results_subdir = os.path.join(RESULTS_DIR, f"{model_fname.replace('.py','')}__R12_accfirst_mixup_ema")
+    results_subdir = os.path.join(RESULTS_DIR, f"{model_fname.replace('.py','')}__R13_accfirst_minimal")
     ensure_dir(results_subdir)
     with open(os.path.join(results_subdir, "run_config.json"), "w") as f:
-        json.dump({"runner":"R12_accfirst_mixup_ema",
+        json.dump({"runner":"R13_accfirst_minimal",
                    "cfg": cfg,
                    "channels": CHANNELS,
-                   "optim":"AdamW",
-                   "sched":"LinearWarmup->CosineAnnealingLR",
+                   "optim": optim_name,
+                   "sched": ("LinearWarmup->Cosine" if use_scheduler else "none"),
                    "pos_weight_mode": pos_weight_mode,
                    "weight_decay": weight_decay,
-                   "augment":{"enabled": use_aug, "time_mask":{"n":2,"max_len":30}, "gaussian_sigma":0.01},
-                   "mixup":{"enabled": use_mixup, "alpha": mixup_alpha},
-                   "ema":{"enabled": use_ema, "decay": ema_decay},
+                   "augment_enabled": use_aug,
                    "constraints":{"hard":{"f1":HARD_MIN_F1,"prec":HARD_MIN_PREC},
                                   "soft":{"f1":SOFT_MIN_F1,"prec":SOFT_MIN_PREC}}},
                   f, indent=2)
@@ -221,23 +175,28 @@ def run_with_model_path(model_path, epochs=None, batch_size=None, lr=None, patie
             pos = int((ytr==1).sum()); neg = int((ytr==0).sum())
             pos_weight = neg / max(pos, 1)
         else:
-            pos_weight = float(pos_weight_mode)  # اجازه بده کاربر مقدار بده
+            pos_weight = float(pos_weight_mode)
         criterion = nn.BCEWithLogitsLoss(pos_weight=torch.tensor(pos_weight, device=device))
 
-        # AdamW + Warmup→Cosine
-        optimizer = torch.optim.AdamW(model.parameters(), lr=cfg["lr"], weight_decay=weight_decay)
-        if cfg["epochs"] <= warmup_epochs: warmup_epochs = max(1, cfg["epochs"]//3)
-        scheduler = SequentialLR(
-            optimizer,
-            schedulers=[
-                LinearLR(optimizer, start_factor=0.2, total_iters=warmup_epochs),
-                CosineAnnealingLR(optimizer, T_max=max(1, cfg["epochs"]-warmup_epochs))
-            ],
-            milestones=[warmup_epochs]
-        )
+        # optimizer
+        if optim_name.lower() == "adam":
+            optimizer = torch.optim.Adam(model.parameters(), lr=cfg["lr"], weight_decay=weight_decay)
+        else:
+            optimizer = torch.optim.AdamW(model.parameters(), lr=cfg["lr"], weight_decay=weight_decay)
 
-        # EMA
-        ema = ModelEMA(model, decay=ema_decay) if use_ema else None
+        # scheduler: Linear warmup -> Cosine (اختیاری)
+        if use_scheduler:
+            we = warmup_epochs if cfg["epochs"] > 2 else 1
+            scheduler = SequentialLR(
+                optimizer,
+                schedulers=[
+                    LinearLR(optimizer, start_factor=0.3, total_iters=we),
+                    CosineAnnealingLR(optimizer, T_max=max(1, cfg["epochs"]-we))
+                ],
+                milestones=[we]
+            )
+        else:
+            scheduler = None
 
         best_f1_05, best_state, patience_left = -1.0, None, cfg["patience"]
 
@@ -245,75 +204,40 @@ def run_with_model_path(model_path, epochs=None, batch_size=None, lr=None, patie
             model.train()
             for xb, yb in train_loader:
                 xb = xb.to(device, non_blocking=True).float()
-                yb = yb.to(device, non_blocking=True)
-
-                # MixUp
-                if use_mixup:
-                    xb, yb_soft = mixup_batch(xb, yb, alpha=mixup_alpha)
-                    yb_f = yb_soft
-                else:
-                    yb_f = yb.float()
-
-                # Augment‌های زمانی سبک
-                if use_aug:
-                    time_mask_(xb, max_len=30, n=2)
-                    add_gaussian_noise_(xb, sigma=0.01)
-
+                yb = yb.to(device, non_blocking=True).float()
                 optimizer.zero_grad()
-                logits = model(xb).squeeze(-1)
-                loss = criterion(logits, yb_f)
+                loss = criterion(model(xb).squeeze(-1), yb)
                 loss.backward()
                 if grad_clip and grad_clip > 0:
                     nn.utils.clip_grad_norm_(model.parameters(), grad_clip)
                 optimizer.step()
 
-                # EMA update
-                if ema is not None:
-                    ema.update(model)
+            if scheduler is not None:
+                scheduler.step()
 
-            scheduler.step()
-
-            # ارزیابی @0.5 با EMA (اگر فعال است)
-            if ema is not None:
-                # ساخت مدل هم‌معماری و لود EMA state dict (بدون deepcopy)
-                model_ema = mod.build_model(input_channels=16, seq_len=1500).to(device)
-                model_ema.load_state_dict(ema.state_dict_for(model))
-                yt, yp = _eval_probs(model_ema, val_loader, device)
-                del model_ema
-            else:
-                yt, yp = _eval_probs(model, val_loader, device)
-
+            yt, yp = _eval_probs(model, val_loader, device)
             m05 = _metrics_at_threshold(yt, yp, 0.5)
-            print(f"[R12][fold {k}] epoch {epoch:02d} | loss={loss.item():.4f} | "
+            print(f"[R13][fold {k}] epoch {epoch:02d} | loss={loss.item():.4f} | "
                   f"val@0.5: acc={m05['acc']:.3f} f1={m05['f1']:.3f} prec={m05['prec']:.3f} rec={m05['rec']:.3f}")
 
             if m05["f1"] > best_f1_05:
                 best_f1_05 = m05["f1"]
-                # ذخیره بهترین وزن‌های خودِ مدل (نه EMA). در پایان با EMA ارزیابی می‌کنیم.
                 best_state = {n:p.detach().cpu().clone() for n,p in model.state_dict().items()}
                 patience_left = cfg["patience"]
             else:
                 patience_left -= 1
                 if patience_left <= 0:
-                    print(f"[R12][fold {k}] early stopping.")
+                    print(f"[R13][fold {k}] early stopping.")
                     break
 
-        # مدل را به بهترین وضعیت بازگردان
         if best_state is not None:
             model.load_state_dict(best_state)
 
-        # ارزیابی نهایی و انتخاب آستانه با EMA (اگر فعال است)
-        if ema is not None:
-            model_ema = mod.build_model(input_channels=16, seq_len=1500).to(device)
-            model_ema.load_state_dict(ema.state_dict_for(model))
-            yt, yp = _eval_probs(model_ema, val_loader, device)
-            del model_ema
-        else:
-            yt, yp = _eval_probs(model, val_loader, device)
-
+        # threshold selection (accuracy-first)
+        yt, yp = _eval_probs(model, val_loader, device)
         thr, mb, hard_ok, soft_ok = _choose_threshold_accfirst(yt, yp)
 
-        # ذخیره
+        # save
         fold_dir = os.path.join(results_subdir, f"fold{k}")
         ensure_dir(fold_dir)
         with open(os.path.join(fold_dir, "metrics_best.json"), "w") as f:
@@ -322,7 +246,7 @@ def run_with_model_path(model_path, epochs=None, batch_size=None, lr=None, patie
             jb.update({"best_threshold": float(thr),
                        "hard_constraints_satisfied": bool(hard_ok),
                        "soft_constraints_used": bool(soft_ok),
-                       "note": "R12_accfirst_mixup_ema"})
+                       "note": "R13_accfirst_minimal"})
             json.dump(jb, f, indent=2)
 
         pd.DataFrame({"y_true": yt, "y_prob": yp, "y_pred_best": mb["y_pred"]}).to_csv(
@@ -339,27 +263,25 @@ def run_with_model_path(model_path, epochs=None, batch_size=None, lr=None, patie
     with open(os.path.join(results_subdir, "_summary_avg_std.json"), "w") as f:
         json.dump({"avg": {k: float(v) for k,v in avg.items()},
                    "std": {k: float(v) for k,v in std.items()},
-                   "note": "R12: AdamW+Warmup+Cosine + Aug + MixUp + EMA (eval)"}, f, indent=2)
-    print("[DONE][R12] Results in:", results_subdir)
+                   "note": "R13: minimal (AdamW/Adam + optional warmup-cosine), no mixup/ema/aug by default"}, f, indent=2)
+    print("[DONE][R13] Results in:", results_subdir)
 
-# ---- CLI اختیاری ----
+# ---- CLI (اختیاری) ----
 def main():
     p = argparse.ArgumentParser()
-    p.add_argument("--model", required=True, help="مسیر models/<file>.py یا نام فایل")
+    p.add_argument("--model", required=True)
     p.add_argument("--epochs", type=int, default=None)
     p.add_argument("--batch_size", type=int, default=None)
     p.add_argument("--lr", type=float, default=None)
     p.add_argument("--patience", type=int, default=None)
     p.add_argument("--seed", type=int, default=42)
-    p.add_argument("--pos_weight_mode", default="auto", help="'auto' یا مقدار float مثل 0.9")
+    p.add_argument("--pos_weight_mode", default="auto")      # 'auto' یا عدد مثل 0.9
     p.add_argument("--weight_decay", type=float, default=2e-4)
-    p.add_argument("--no_aug", action="store_true")
-    p.add_argument("--no_mixup", action="store_true")
-    p.add_argument("--mixup_alpha", type=float, default=0.2)
-    p.add_argument("--no_ema", action="store_true")
-    p.add_argument("--ema_decay", type=float, default=0.999)
-    p.add_argument("--grad_clip", type=float, default=1.0)
+    p.add_argument("--optim", default="adamw")               # 'adamw' یا 'adam'
+    p.add_argument("--no_sched", action="store_true")
     p.add_argument("--warmup_epochs", type=int, default=3)
+    p.add_argument("--grad_clip", type=float, default=1.0)
+    p.add_argument("--use_aug", action="store_true")         # پیش‌فرض خاموش
     args = p.parse_args()
 
     model_path = args.model
@@ -370,10 +292,9 @@ def main():
     run_with_model_path(
         model_path, epochs=args.epochs, batch_size=args.batch_size, lr=args.lr,
         patience=args.patience, seed=args.seed, pos_weight_mode=args.pos_weight_mode,
-        weight_decay=args.weight_decay, use_aug=(not args.no_aug),
-        use_mixup=(not args.no_mixup), mixup_alpha=args.mixup_alpha,
-        use_ema=(not args.no_ema), ema_decay=args.ema_decay,
-        grad_clip=args.grad_clip, warmup_epochs=args.warmup_epochs
+        weight_decay=args.weight_decay, optim_name=args.optim,
+        use_scheduler=(not args.no_sched), warmup_epochs=args.warmup_epochs,
+        grad_clip=args.grad_clip, use_aug=args.use_aug
     )
 
 if __name__ == "__main__":
